@@ -1,0 +1,36 @@
+## Docker commands used to build the application 
+docker build -t techtrends .
+
+## Docker commands used to run the application
+docker run -d -p 7111:3111 techtrends 
+
+## Docker commands used to get the application logs
+docker logs -f 2ea7a04db838
+
+## Logs from the container running the TechTrends application
+* Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+2022-07-19 10:33:34,984 WARNING  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-07-19 10:33:34,984 INFO  * Running on http://172.17.0.2:3111/ (Press CTRL+C to quit)
+2022-07-19 10:33:53,086 INFO 172.17.0.1 - - [19/Jul/2022 10:33:53] "GET / HTTP/1.1" 200 -
+2022-07-19 10:33:53,182 INFO 172.17.0.1 - - [19/Jul/2022 10:33:53] "GET /static/css/main.css HTTP/1.1" 200 -
+2022-07-19 10:33:53,354 INFO 172.17.0.1 - - [19/Jul/2022 10:33:53] "GET /favicon.ico HTTP/1.1" 404 -
+2022-07-19 10:40:18,849 DEBUG Article 2020 CNCF Annual Report retrieved!
+2022-07-19 10:40:18,856 INFO 172.17.0.1 - - [19/Jul/2022 10:40:18] "GET /1 HTTP/1.1" 200 -
+2022-07-19 10:40:18,951 INFO 172.17.0.1 - - [19/Jul/2022 10:40:18] "GET /static/css/main.css HTTP/1.1" 304 -
+2022-07-19 10:40:21,783 DEBUG About us page is retrieved
+2022-07-19 10:40:21,785 INFO 172.17.0.1 - - [19/Jul/2022 10:40:21] "GET /about HTTP/1.1" 200 -
+2022-07-19 10:40:21,887 INFO 172.17.0.1 - - [19/Jul/2022 10:40:21] "GET /static/css/main.css HTTP/1.1" 304 -
+2022-07-19 10:41:46,950 INFO 172.17.0.1 - - [19/Jul/2022 10:41:46] "GET /create HTTP/1.1" 200 -
+2022-07-19 10:41:47,050 INFO 172.17.0.1 - - [19/Jul/2022 10:41:47] "GET /static/css/main.css HTTP/1.1" 304 -
+2022-07-19 10:42:03,328 DEBUG New article is created: Create new post by MrGru
+2022-07-19 10:42:03,328 INFO 172.17.0.1 - - [19/Jul/2022 10:42:03] "POST /create HTTP/1.1" 302 -
+2022-07-19 10:42:03,371 INFO 172.17.0.1 - - [19/Jul/2022 10:42:03] "GET / HTTP/1.1" 200 -
+2022-07-19 10:42:03,499 INFO 172.17.0.1 - - [19/Jul/2022 10:42:03] "GET /static/css/main.css HTTP/1.1" 304 -
+2022-07-19 10:42:12,925 INFO 172.17.0.1 - - [19/Jul/2022 10:42:12] "GET /metrics HTTP/1.1" 200 -
+2022-07-19 10:42:20,974 INFO 172.17.0.1 - - [19/Jul/2022 10:42:20] "GET /helthz HTTP/1.1" 404 -
+2022-07-19 10:42:26,237 INFO 172.17.0.1 - - [19/Jul/2022 10:42:26] "GET /healthz HTTP/1.1" 200 -
