@@ -1,4 +1,5 @@
 import sqlite3
+import sys
 
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
@@ -15,17 +16,12 @@ def get_db_connection():
     connectionCount = connectionCount + 1
     return connection
 
-def closeConnection(conn):
-    global connectionCount
-    conn.close()
-    connectionCount = connectionCount - 1
-
 # Function to get a post using its ID
 def get_post(post_id):
     connection = get_db_connection()
     post = connection.execute('SELECT * FROM posts WHERE id = ?',
                               (post_id,)).fetchone()
-    closeConnection(connection)
+    connection.close() 
     return post
 
 
@@ -38,7 +34,7 @@ app.config['SECRET_KEY'] = 'your secret key'
 def index():
     connection = get_db_connection()
     posts = connection.execute('SELECT * FROM posts').fetchall()
-    closeConnection(connection)
+    connection.close()
     return render_template('index.html', posts=posts)
 
 # Define how each individual article is rendered
@@ -74,7 +70,7 @@ def create():
             connection.execute('INSERT INTO posts (title, content) VALUES (?, ?)',
                                (title, content))
             connection.commit()
-            closeConnection(connection)
+            connection.close()
             app.logger.debug(f'New article is created: {title}')
             return redirect(url_for('index'))
 
@@ -96,7 +92,7 @@ def metrics():
     global connectionCount
     connection = get_db_connection()
     totalPosts = connection.execute('SELECT Count() FROM posts').fetchone()
-    closeConnection(connection)
+    connection.close()
 
     response = app.response_class(
         response=json.dumps(
@@ -109,5 +105,7 @@ def metrics():
 
 # start the application on port 3111
 if __name__ == "__main__":
-    logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s', level=logging.DEBUG)
+    stdoutHandler = logging.StreamHandler(stream=sys.stdout)
+    stderrHandler = logging.StreamHandler(stream=sys.stderr)
+    logging.basicConfig(handlers=[stdoutHandler, stderrHandler], format='%(asctime)s %(levelname)s %(message)s', level=logging.DEBUG)
     app.run(host='0.0.0.0', port='3111')
